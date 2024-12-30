@@ -10,7 +10,7 @@
   "author": {
     "name": "Ujjwal Gupta",
     "email": "ugupta41@gmail.com",
-    "url": "https://http://slapbot.me/"
+    "url": "https://slapbot.me/"
   },
   "keywords": [
     "electron",
@@ -34,26 +34,27 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "axios": "^0.19.2",
-    "chart.js": "^2.9.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "axios": "^1.7.7",
+    "chart.js": "^4.4.7",
     "electron-is-dev": "^1.2.0",
     "electron-log": "^4.2.0",
     "jssoup": "0.0.11",
     "lodash": "^4.17.15",
-    "react": "^16.13.1",
-    "react-chartjs-2": "^2.9.0",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.3.1",
+    "vite": "^6.0.6"
   },
   "scripts": {
-    "browser-react-start": "node public/browser.js&&set REACT_APP_LITE_MODE=1&&react-scripts start",
-    "react-start": "set BROWSER=none&&set REACT_APP_LITE_MODE=0&&react-scripts start",
-    "react-build": "react-scripts build",
-    "react-test": "react-scripts test",
-    "react-eject": "react-scripts eject",
+    "browser-start": "node public/browser.js&&set VITE_REACT_APP_LITE_MODE=1&&vite",
+    "start": "set BROWSER=none&&set VITE_REACT_APP_LITE_MODE=0&&vite",
+    "vite-build": "vite build",
+    "test": "vite test",
+    "vite-eject": "vite eject",
     "electron-start": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
     "electron-build": "electron-builder",
-    "build": "npm run react-build && npm run electron-build",
+    "build": "npm run vite-build && npm run electron-build",
     "lite-mode": "npm run browser-react-start"
   },
   "eslintConfig": {
@@ -72,7 +73,7 @@
     ]
   },
   "devDependencies": {
-    "electron": "^9.0.0",
-    "electron-builder": "^22.6.1"
+    "electron": "^32.1.2",
+    "electron-builder": "^25.1.7"
   }
 }

@@ -1,5 +1,6 @@
 import {Bar, Line, Pie} from "react-chartjs-2";
 import React from "react";
+import {default as Chartjs} from "chart.js/auto";
 import { createData } from "./ChartData";
 
 function Chart(props) {
@@ -12,22 +13,23 @@ function Chart(props) {
     }
     function getChart(info, type, metaData) {
         let data = createData(info, type, metaData)
+        console.log(data)
         let options = {
             scales: {
-                xAxes: [{
+                x: {
                     display: true,
                     scaleLabel: {
                         display: true,
                         labelString: metaData.xLabel
                     }
-                }],
-                yAxes: [{
+                },
+                y: {
                     display: true,
                     scaleLabel: {
                         display: true,
                         labelString: metaData.yLabel
                     }
-                }]
+                }
             }
         }
         switch (type) {
