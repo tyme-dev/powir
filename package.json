@@ -35,7 +35,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@vitejs/plugin-react": "^4.3.4",
-    "axios": "^1.7.7",
+    "axios": "^1.7.9",
     "chart.js": "^4.4.7",
     "electron-is-dev": "^1.2.0",
     "electron-log": "^4.2.0",
@@ -49,13 +49,10 @@
   "scripts": {
     "browser-start": "node public/browser.js&&set VITE_REACT_APP_LITE_MODE=1&&vite",
     "start": "set BROWSER=none&&set VITE_REACT_APP_LITE_MODE=0&&vite",
-    "vite-build": "vite build",
-    "test": "vite test",
-    "vite-eject": "vite eject",
     "electron-start": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
     "electron-build": "electron-builder",
-    "build": "npm run vite-build && npm run electron-build",
-    "lite-mode": "npm run browser-react-start"
+    "build": "vite build && npm run electron-build",
+    "dev": "npm run browser-start"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -73,7 +70,7 @@
     ]
   },
   "devDependencies": {
-    "electron": "^32.1.2",
-    "electron-builder": "^25.1.7"
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
   }
 }
