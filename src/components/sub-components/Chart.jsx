@@ -13,7 +13,6 @@ function Chart(props) {
     }
     function getChart(info, type, metaData) {
         let data = createData(info, type, metaData)
-        console.log(data)
         let options = {
             scales: {
                 x: {

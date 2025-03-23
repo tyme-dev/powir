@@ -1,27 +1,51 @@
-const { app, BrowserWindow, ipcMain, Menu } = require('electron')
-const path = require('path')
-const isDev  = require('electron-is-dev')
-const server = require('./app/server')
-const { getMenuTemplate } = require('./app/menu')
+import { app, BrowserWindow, ipcMain, Menu } from 'electron'
+import { join } from 'path'
+import isDev from 'electron-is-dev'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+import server, {
+  log,
+  sendBatteryReport,
+  showOriginalReport,
+  exportJSONData,
+  exportPDFReport,
+  getUpdates,
+  openLink,
+} from '../public/app/server'
+import { getMenuTemplate } from '../public/app/menu'
 
+process.env.APP_ROOT = join(__dirname, '..')
+const RENDERER_DIST = join(process.env.APP_ROOT, 'dist')
 
-function createWindow () {
+function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
+      preload: path.join(__dirname, 'preload.js'),
     },
-    show: false
+    show: false,
   })
 
   win.maximize()
   win.show()
   // and load the index.html of the app.
-  win.loadURL(
-      isDev ? "http://localhost:3000" : `file://${path.join(__dirname, '../build/index.html')}`
-  ).catch(error => server.log('error', error))
+  win
+    .loadURL(
+      isDev
+        ? 'http://localhost:3000'
+        : `file://${join(__dirname, '../build/index.html')}`
+    )
+    .catch((error) => log('error', error))
+
+  if (isDev) {
+    win.loadURL('http://localhost:3000')
+  } else {
+    win.loadFile(join(RENDERER_DIST, 'index.html'))
+  }
 
   // Open the DevTools.
   isDev ? win.webContents.openDevTools() : null
@@ -30,7 +54,6 @@ function createWindow () {
 const menuTemplate = getMenuTemplate(server)
 const menu = Menu.buildFromTemplate(menuTemplate)
 Menu.setApplicationMenu(menu)
-
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -57,25 +80,25 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 ipcMain.on('battery-report-ready', (event, data) => {
-  server.sendBatteryReport(event, data)
+  sendBatteryReport(event, data)
 })
 
 ipcMain.on('show-original-report', (event, data) => {
-  server.showOriginalReport()
+  showOriginalReport()
 })
 
 ipcMain.on('export-JSON-data', (event, data) => {
-  server.exportJSONData()
+  exportJSONData()
 })
 
 ipcMain.on('export-PDF-report', (event, data) => {
-  server.exportPDFReport()
+  exportPDFReport()
 })
 
 ipcMain.on('get-updates', (event, data) => {
-  server.getUpdates(event, data)
+  getUpdates(event, data)
 })
 
 ipcMain.on('open-link', async (event, data) => {
-  server.openLink(data.url).catch(error => server.log(error))
+  openLink(data.url).catch((error) => log(error))
 })

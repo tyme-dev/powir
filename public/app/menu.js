@@ -86,6 +86,6 @@ function getMenuTemplate(server) {
     ]
 }
 
-module.exports = {
+export {
     getMenuTemplate
 }

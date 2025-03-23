@@ -1,24 +1,20 @@
-const { BrowserWindow, dialog, shell } = require('electron')
-const path = require('path')
-const isDev  = require('electron-is-dev')
-const scraper = require('./scrape')
-const axios = require('axios');
-const logger = require('electron-log')
+import { BrowserWindow, dialog, shell } from 'electron';
+import { join } from 'path';
+import isDev from 'electron-is-dev';
+import { generateBatteryReport, getHtmlFromFile, scrape, writeDataToFile } from './scrape.js';
+import  get  from 'axios';
+import { log as _log } from 'electron-log';
 
 
 function getBatteryReport() {
-    return scraper.generateBatteryReport(
+    return generateBatteryReport(
         'powercfg batteryreport output "battery-report.html" duration 5'
     )
         .catch(error => log('error', error))
-        .then(_ => scraper.getHtmlFromFile('battery-report.html'))
+        .then(_ => getHtmlFromFile('battery-report.html'))
         .catch(error => log(error))
-        .then(html => scraper.scrape(html))
+        .then(html => scrape(html))
         .catch(error => log(error))
-
-    // return scraper.getHtmlFromFile('battery-report.html')
-    //     .catch(error => log(error))
-    //     .then(html => scraper.scrape(html))
 }
 
 let batteryReport = getBatteryReport()
@@ -35,8 +31,8 @@ function showOriginalReport() {
         height: 600,
     })
     win.loadURL(
-        isDev ? `file://${path.join(__dirname, '../../battery-report.html')}`
-            : `file://${path.join(__dirname, '../../../../battery-report.html')}`
+        isDev ? `file://${join(__dirname, '../../battery-report.html')}`
+            : `file://${join(__dirname, '../../../../battery-report.html')}`
     ).catch(error => log('error', error))
 }
 
@@ -62,7 +58,7 @@ function exportJSONData() {
         ]
     }
     dialog.showSaveDialog(null, options).then(result => {
-        batteryReport.then(data => scraper.writeDataToFile(JSON.stringify(data, null, 4), result.filePath))
+        batteryReport.then(data => writeDataToFile(JSON.stringify(data, null, 4), result.filePath))
             .catch(error => log('error', error))
             .then(_ => log('JSON saved!'))
             .catch(error => log('error', error))
@@ -93,7 +89,7 @@ function exportPDFReport() {
     }
     currentWindow.webContents.printToPDF(pdfSettings()).then(data => {
         dialog.showSaveDialog(null, options).then(result => {
-            scraper.writeDataToFile(data, result.filePath).then(_ => log('PDF saved!'))
+            writeDataToFile(data, result.filePath).then(_ => log('PDF saved!'))
                 .catch(error => log('error', error))
         }).catch(err => log(err))
     }).catch(err => log(err))
@@ -104,7 +100,7 @@ function openLink(url) {
 }
 
 function makeGetRequest(url) {
-    return axios.get(url)
+    return get(url)
 }
 
 function getUpdates(event, data) {
@@ -113,12 +109,12 @@ function getUpdates(event, data) {
     }).catch(error => log('error', error))
 }
 
-function log(type, message) {
+export default function log(type, message) {
     console.log(type, message)
-    logger.log(message)
+    _log(message)
 }
 
-module.exports = {
+export {
     sendBatteryReport,
     showOriginalReport,
     exportJSONData,

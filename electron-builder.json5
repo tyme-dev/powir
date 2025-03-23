@@ -1,0 +1,19 @@
+// @see - https://www.electron.build/configuration/configuration
+{
+  "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
+  "appId": "powir.timothy.dev",
+  "asar": true,
+  "productName": "powir",
+  "directories": {
+    "output": "release/${version}"
+  },
+  "files": [
+    "dist",
+    "dist-electron"
+  ],
+  "win": {
+    "target": "portable",
+    "icon": "dist/icon.ico",
+    "artifactName": "${productName}-${version}.${ext}"
+  }
+}
