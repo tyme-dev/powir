@@ -1,3 +1,5 @@
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
 body {
   margin: 0;
 }
@@ -8,9 +10,13 @@ code {
 }
 html {
   margin: 1em;
-  background-color: #F5F5F7;
 }
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
 }
 
@@ -25,11 +31,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .border-bottom {
-  border-bottom: 1px solid rgba(65, 64, 62, 0.20);
+  border-bottom: 1px solid rgba(65, 64, 62, 0.2);
 }
 
 .border-top {
-  border-top: 1px solid rgba(65, 64, 62, 0.20);
+  border-top: 1px solid rgba(65, 64, 62, 0.2);
 }
 
 /*noinspection CssReplaceWithShorthandSafely*/
@@ -75,7 +81,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .m-0-important {
-  margin: 0
+  margin: 0;
 }
 
 .mt-0-3 {
@@ -89,5 +95,5 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .image-24 {
-  width: 24px
+  width: 24px;
 }

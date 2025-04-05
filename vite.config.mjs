@@ -2,10 +2,14 @@ import { defineConfig } from 'vite'
 import path from 'node:path'
 import electron from 'vite-plugin-electron/simple'
 import react from '@vitejs/plugin-react'
+import { fileURLToPath } from 'node:url'
+import tailwindcss from '@tailwindcss/vite'
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     react(),
     electron({
       main: {
