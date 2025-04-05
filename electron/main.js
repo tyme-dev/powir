@@ -4,15 +4,7 @@ import isDev from 'electron-is-dev'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-import server, {
-  log,
-  sendBatteryReport,
-  showOriginalReport,
-  exportJSONData,
-  exportPDFReport,
-  getUpdates,
-  openLink,
-} from '../public/app/server'
+import server from '../public/app/server'
 import { getMenuTemplate } from '../public/app/menu'
 
 process.env.APP_ROOT = join(__dirname, '..')
@@ -80,25 +72,25 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 ipcMain.on('battery-report-ready', (event, data) => {
-  sendBatteryReport(event, data)
+  server.sendBatteryReport(event, data)
 })
 
 ipcMain.on('show-original-report', (event, data) => {
-  showOriginalReport()
+  server.showOriginalReport()
 })
 
 ipcMain.on('export-JSON-data', (event, data) => {
-  exportJSONData()
+  server.exportJSONData()
 })
 
 ipcMain.on('export-PDF-report', (event, data) => {
-  exportPDFReport()
+  server.exportPDFReport()
 })
 
 ipcMain.on('get-updates', (event, data) => {
-  getUpdates(event, data)
+  server.getUpdates(event, data)
 })
 
 ipcMain.on('open-link', async (event, data) => {
-  openLink(data.url).catch((error) => log(error))
+  server.openLink(data.url).catch((error) => log(error))
 })

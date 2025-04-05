@@ -75,15 +75,6 @@ function Sidebar(props) {
           src='assets/images/like--v1.png'
           alt='heart'
         />
-        <p>
-          By{' '}
-          <button
-            className='clean-button underline'
-            onClick={() => openExternalLink('https://slapbot.me')}
-          >
-            Slapbot
-          </button>
-        </p>
         <p className='text-xs'>100 % open source</p>
         {/* <p className='text-2xl sidebar-footnote'>
           <button

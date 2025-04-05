@@ -1,7 +1,7 @@
 import { exec } from 'child_process'
 import { readFile, writeFile } from 'fs'
 import { parseUsageInfo, parseHistoryInfo } from './parse.js'
-import { createRequire } from 'node:module';
+import { createRequire } from 'node:module'
 
 const require = createRequire(import.meta.url)
 const JSSoup = require('jssoup').default
@@ -13,7 +13,7 @@ function generateBatteryReport(cmd) {
         resolve(stdout)
       }
       if (stderr) {
-        reject(stderr)
+        reject(new Error(stderr))
       }
       reject(err)
     })
@@ -125,7 +125,7 @@ function getTabulatedKeys(data, rawInfo, index) {
           colElements[colElements.length - 1] + ' (VALUE)',
         ])
     case 'powerUsageHistoryInfo':
-    case 'batteryLifeHistory':
+    case 'batteryLifeHistory': {
       // noinspection JSUnresolvedFunction
       let colSubElements = rawInfo[0].findAll('td').reduce((data, element) => {
         let formattedElement = cleanNewlineText(element.text)
@@ -146,6 +146,7 @@ function getTabulatedKeys(data, rawInfo, index) {
         }
         return colElement
       })
+    }
     default:
       return colElements
   }

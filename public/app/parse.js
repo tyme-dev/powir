@@ -45,35 +45,28 @@ export function parseHistoryInfo(data, colElements, cleanerFn) {
 
   return colElements.map((colElement, colIndex) => {
     let formattedElement = cleanerFn(colElement.text)
-    switch (colIndex) {
+    if (colIndex === 0) {
       // Period: date / date - date
-      case 0:
-        if (formattedElement.split(' - ').length === 1) {
+      if (formattedElement.split(' - ').length === 1) {
+        return (
+          formattedElement +
+          ' - ' +
+          addDays(new Date(formattedElement), 1).toISOString().split('T')[0]
+        )
+      }
+      if (data.length > 0) {
+        let lastDate = new Date(data[data.length - 1][colIndex].split(' - ')[1])
+        let currentDate = new Date(formattedElement.split(' - ')[0])
+        if (lastDate > currentDate) {
           return (
-            formattedElement +
+            addDays(currentDate, 1).toISOString().split('T')[0] +
             ' - ' +
-            addDays(new Date(formattedElement), 1).toISOString().split('T')[0]
+            formattedElement.split(' - ')[1]
           )
         }
-        if (data.length > 0) {
-          let lastDate = new Date(
-            data[data.length - 1][colIndex].split(' - ')[1]
-          )
-          let currentDate = new Date(formattedElement.split(' - ')[0])
-          if (lastDate > currentDate) {
-            return (
-              addDays(currentDate, 1).toISOString().split('T')[0] +
-              ' - ' +
-              formattedElement.split(' - ')[1]
-            )
-          }
-        }
-        break
-      default:
-        if (formattedElement === '-') {
-          return '0:00:00'
-        }
-        break
+      }
+    } else if (formattedElement === '-') {
+      return '0:00:00'
     }
     return formattedElement
   })
