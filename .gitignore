@@ -30,3 +30,4 @@ output.json
 update.json
 battery-debug-reports/
 release
+dist-electron
