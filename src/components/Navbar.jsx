@@ -10,15 +10,10 @@ function Navbar() {
       <div className='mb-2'>
         <div className='flex justify-between'>
           <div className='content-center'>
-            <button
-              className='content-center pr-2 custom-border border-right cursor-pointer clean-button'
-              onClick={() => openExternalLink('https://powir.slapbot.me')}
-            >
-              <h4>Powir</h4>
-              <span className='badge ml-1 mr-2 mt-0-3 text-sm'>
-                v{formatVersion(config.version)}
-              </span>
-            </button>
+            <h4>Powir</h4>
+            <span className='badge ml-1 mr-2 mt-0-3 text-sm'>
+              v{formatVersion(config.version)}
+            </span>
             <h5 className='content-center ml-2'>
               Monitoring & Analyzing Your Battery!
             </h5>

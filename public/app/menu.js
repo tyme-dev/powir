@@ -1,25 +1,6 @@
 function getMenuTemplate(server) {
   return [
     {
-      label: 'File',
-      submenu: [
-        {
-          label: 'Main Website',
-          click: async () => {
-            await openLink('https://powir.slapbot.me')
-          },
-        },
-        {
-          label: 'Author',
-          click: async () => {
-            server.showAuthorPage()
-          },
-        },
-        { type: 'separator' },
-        { role: 'quit' },
-      ],
-    },
-    {
       label: 'Actions',
       submenu: [
         {

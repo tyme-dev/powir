@@ -247,14 +247,12 @@ function computeInfo(soup, infoName, index, filterType) {
 }
 
 function computeBatteryHealth(info) {
-  console.log(info)
   info.keys.push('BATTERY HEALTH')
   let design = info.data[4].split(' mWh')[0].replace(',', '')
-  console.log(design)
   let full = info.data[5].split(' mWh')[0].replace(',', '')
   let health = full / design
   health = Math.round(health * 10 * 10) / 1
-  info.data.push(health + '%')
+  info.data.push(health + ' %')
 }
 
 function getInfo(soup, infoName, index, filterType) {

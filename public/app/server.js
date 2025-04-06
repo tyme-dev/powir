@@ -43,7 +43,7 @@ function showOriginalReport() {
     .loadURL(
       isDev
         ? `file:/${join(__dirname, '../battery-report.html')}`
-        : `file:/${join(__dirname, '../../../../battery-report.html')}`
+        : `file:${join(__dirname, '../../../battery-report.html')}`
     )
     .catch((error) => log('error', error))
 }
