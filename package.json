@@ -5,12 +5,11 @@
   "main": "dist-electron/main.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SlapBot/powir.git"
+    "url": "git+https://github.com/tyme-dev/powir.git"
   },
   "author": {
-    "name": "Ujjwal Gupta",
-    "email": "ugupta41@gmail.com",
-    "url": "https://slapbot.me/"
+    "name": "Timothy Pace",
+    "email": "powir@timothy.dev"
   },
   "keywords": [
     "electron",
