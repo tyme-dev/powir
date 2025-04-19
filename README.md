@@ -6,19 +6,7 @@
   <h3 align="center">Powir</h3>
   <p align="center">
     Windows 10 based tool to monitor and analyze your system's power and battery usage
-    <br />
-    <a href="https://powir.slapbot.me"><strong>Explore the website »</strong></a>
-    <br />
-    <br />
-    <a href="https://join.slack.com/t/slapbotworkspace/shared_invite/zt-f1ywjyyq-6NT2jF23jjw5fS8oY5gAsQ">Join Slack</a>
-    ·
-    <a href="https://github.com/slapbot/powir/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/slapbot/powir/issues">Request Feature</a>
-    ·
-    <a href="https://twitter.com/ugupta41">Give Feedback</a>
   </p>
-</p>
 
 <hr>
 
@@ -125,35 +113,6 @@ and it can be copied from system to system seamlessly without any dependencies o
 
 ![](demos/processed-screenshots/recent-usage.png)
 
-## Installation Methods
-
-### Desktop App (Main Mode)
-
-- Simply go to [Releases](https://github.com/SlapBot/powir/releases) and pick the latest version to download.
-- Download Current Latest Version (Powir v1): [Github](https://github.com/SlapBot/powir/releases/latest/download/powir.1.0.4.exe) or [GDrive](https://drive.google.com/drive/folders/1ntEjEenEzZXMP8L_nXNoHnIFqNSLpwD9): **Please take a note below before downloading the app**
-
-#### Browser And Windows Defender Warnings
-
-<strong>Note: </strong>
-Since the application isn't code signed yet ([because all of the certificates require annual fee payment regardless of whether you're non-profit or open-source](https://stackoverflow.com/questions/1177552/code-signing-certificate-for-open-source-projects)). Please refer to the issue: [#1](https://github.com/SlapBot/powir/issues/1), Both (Browser & Windows Defender will raise warnings suggesting that app is not protected). 
-
-This doesn't mean that application 
-is inherently unsafe <strong>in fact entire source code is open</strong>, and you can build your own distribution following [Build](#build) section but its due to the paperwork and money involved in getting the certificates to sign the applications [which can cost as much as $699 a year or more](https://stackoverflow.com/a/58559506/6303162).
-
-If you are someone who has an experience around self signing certificates with Windows based builds which result in bypassing these warnings, kindly reply in the given thread [#1](https://github.com/SlapBot/powir/issues/1) :)
-
-#### Solution
-
-For now the solution is to simply ignore the warnings as shown below and always download the application from this [repository](https://github.com/SlapBot/powir) only: 
-
-![](demos/processed-screenshots/browser-warning.png)
-![](demos/gifs/windows-defender-warnings.gif)
-
----
-
-### Browser Window (Lite Mode)
-
-Open up the terminal (for non-developers: that is Command Prompt [cmd.exe]) and follow these instructions:
 
 #### Only one time setup
 
@@ -221,22 +180,11 @@ If you're looking to build it from the source or inspect the app, its extremely 
 ### Usage
 
 #### Electron App
-- Run these two commands in two separate sessions when you are developing in order to use HMR (hot module reloading):
-    - Run react server: `npm run react-start`
-    - Run electron app: `npm run electron-start`
-- All of the server code is located at: `public/server` directory.
-- Entrypoint of the electron app is at`public/electron.js`.
+- Run `npm run dev`:
+- All the server code is located at: `public/server` directory.
+- Entrypoint of the electron app is at `electron/main.js`.
 - Everything related to rendering is done at: `src` directory.
 - Any of the changes you make at src directory will reflect instantly in the app.
-- Any of the changes made for server requires the app to be restarted using: `npm run electron-start`
-
-#### Browser Window App
-- Run `npm run lite-mode` which opens up a tab in your default browser again with HMR enabled.
-- Entrypoint of the browser window app is at`public/browser.js`.
-- Everything related to rendering is done at: `src` directory.
-- Any of the changes you make at src directory will reflect instantly in the app.
-- Any of the changes made for server requires the app to be restarted using: `npm run lite-mode`
-
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. 
@@ -248,20 +196,10 @@ Any contributions you make are **greatly appreciated**.
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-Feel free to join our slack chat group to get more help: [Slack](https://join.slack.com/t/powir/shared_invite/zt-ezy7sf5d-Tt1MmP_bcf_gdGLEJSEfzw)
-
-
 <!-- LICENSE -->
 ## License
 
 Distributed under the GPU General Public License. See `LICENSE` for more information.
-
-<!-- CONTACT -->
-## Contact
-
-Hey there! I'm [Ujjwal](https://twitter.com/ugupta41) who goes around with the name Slapbot in open source communities, You'd often find me blabbering my completely biased opinions in /r/soccer or busy building new things.
-
-I'm most accessible via Twitter and tend to update about whatever I'm working there, so feel free to follow or send a dm there. :)
 
 
 ## Acknowledgement
@@ -277,7 +215,6 @@ Many thanks to these amazing frameworks/libraries/tools/arts without which none 
 
 #### Minor Libraries
 - [Lodash](https://lodash.com/)
-- [JSSoup](https://github.com/chishui/JSSoup)
 - [JSSoup](https://github.com/chishui/JSSoup)
 
 #### Icons
