@@ -44,7 +44,7 @@
     "browser-start": "node public/browser.js&&set VITE_REACT_APP_LITE_MODE=1&&vite",
     "start": "set BROWSER=none&&set VITE_REACT_APP_LITE_MODE=0&&vite",
     "electron-start": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
-    "build": "vite build && electron-builder",
+    "build": "vite build",
     "dev": "set VITE_REACT_APP_LITE_MODE=0&&vite"
   },
   "eslintConfig": {
