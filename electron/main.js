@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain, Menu } from 'electron'
+import { log } from 'electron-log'
 import { join } from 'path'
 import isDev from 'electron-is-dev'
 import path from 'node:path'
@@ -25,16 +26,11 @@ function createWindow() {
   win.maximize()
   win.show()
   // and load the index.html of the app.
-  win
-    .loadURL(
-      isDev
-        ? 'http://localhost:3000'
-        : `file://${join(__dirname, '../build/index.html')}`
-    )
-    .catch((error) => log('error', error))
-
   if (isDev) {
-    win.loadURL('http://localhost:3000')
+    win.loadURL('http://localhost:3000').catch((error) => {
+      if (error.code === 'ERR_ABORTED') return
+      throw error
+    })
   } else {
     win.loadFile(join(RENDERER_DIST, 'index.html'))
   }
