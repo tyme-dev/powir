@@ -62,7 +62,7 @@
     ]
   },
   "devDependencies": {
-    "electron": "^35.3.0",
+    "electron": "^36.0.0",
     "electron-builder": "^26.0.12",
     "eslint": "^9.26.0",
     "eslint-plugin-react": "^7.37.5",
