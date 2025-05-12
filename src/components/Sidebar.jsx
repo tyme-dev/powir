@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState} from 'react'
 import SidebarRow from './sub-components/SidebarRow'
-import openExternalLink from './utils/openExternalLink'
 import { defaults, Chart } from 'chart.js'
 
 function Sidebar(props) {
