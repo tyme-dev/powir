@@ -1,6 +1,6 @@
 import {Bar, Line, Pie} from "react-chartjs-2";
 import React from "react";
-import {default as Chartjs} from "chart.js/auto";
+import Charts from "chart.js/auto"; //Import to auto shake
 import { createData } from "./ChartData";
 
 function Chart(props) {
@@ -16,17 +16,15 @@ function Chart(props) {
         let options = {
             scales: {
                 x: {
-                    display: true,
-                    scaleLabel: {
+                    title:{
                         display: true,
-                        labelString: metaData.xLabel
+                        text: metaData.xLabel
                     }
                 },
                 y: {
-                    display: true,
-                    scaleLabel: {
+                    title:{
                         display: true,
-                        labelString: metaData.yLabel
+                        text: metaData.yLabel
                     }
                 }
             }

@@ -1,5 +1,4 @@
 import React from 'react'
-import openExternalLink from './utils/openExternalLink'
 
 function AboutWindow() {
   let features = [

@@ -3,7 +3,6 @@ import { defaults, Chart } from 'chart.js'
 import Navbar from './components/Navbar'
 import Body from './components/Body'
 import Footer from './components/Footer'
-import Broadcast from './components/Broadcast'
 
 defaults.font.family = 'Neucha'
 

@@ -1,6 +1,5 @@
 <br />
 <p align="center">
-  <a href="https://powir.slapbot.me">
     <img src="public/icon.ico" alt="Logo" width="80" height="80">
   </a>
   <h3 align="center">Powir</h3>
@@ -61,7 +60,7 @@ The App is completely portable meaning you don't have to go through an installat
 and it can be copied from system to system seamlessly without any dependencies or extra files needed. **Recommended**
   - Terminal: Simply download the binary and run it:
   ```bash
-  curl -L https://github.com/SlapBot/powir/releases/download/v1.0.4/powir.1.0.4.exe --output powir.exe
+  curl -L https://github.com/tyme-dev/powir/releases/download/v2.0.0/powir.2.0.0.exe --output powir.exe
   ./powir
   ```
   - Double Click: Again [download](#desktop-app-main-mode) the binary and run it but please read this [note](#browser-and-windows-defender-warnings)
@@ -118,14 +117,14 @@ and it can be copied from system to system seamlessly without any dependencies o
 
 Commands (copy-paste):
 ```bash
-git clone https://github.com/SlapBot/powir.git
+git clone https://github.com/tyme-dev/powir.git
 cd powir
 npm install --production
 ```
 
 Explanation:
 - Ensure you have git, node and npm installed using commands: `git --version`, `node -v` and `npm -v` respectively, else install it from here: [Git](https://git-scm.com/downloads) and [NodeJS](https://nodejs.org/en/download/) (installer contains both node and npm)
-- Clone the repository using: `git clone https://github.com/SlapBot/powir.git` and cd into the folder: `cd powir`
+- Clone the repository using: `git clone https://github.com/tyme-dev/powir.git` and cd into the folder: `cd powir`
 - Run `npm install --production` to install dependencies
 
 #### Anytime
@@ -170,7 +169,7 @@ If you're looking to build it from the source or inspect the app, its extremely 
 
 ### Setup
 
-- Clone the repository: `git clone https://github.com/SlapBot/powir.git`
+- Clone the repository: `git clone https://github.com/tyme-dev/powir.git`
 - Cd into the directory: `cd powir` and run: `npm install`
 
 ### Build
