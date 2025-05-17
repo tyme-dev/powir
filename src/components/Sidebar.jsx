@@ -1,6 +1,8 @@
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 import SidebarRow from './sub-components/SidebarRow'
 import { defaults, Chart } from 'chart.js'
+import { Classic } from '@theme-toggles/react'
+import '@theme-toggles/react/css/Classic.css'
 
 function Sidebar(props) {
   const [sidebarRows, setSideBarRows] = useState([
@@ -34,15 +36,6 @@ function Sidebar(props) {
       spanClass: '',
     },
   ])
-  //   const [color, setColor] = useState(['white'])
-
-  //   function changeCholor() {
-  //     const top = document.getElementsByClassName('dark')[0]
-  //     top.className = 'light'
-  //     top.style.backgroundColor = 'white'
-  //     Chart.defaults.color = 'black'
-  //     setColor('black')
-  //   }
 
   function notifyBody(sidebarIndex) {
     setSideBarRows(
@@ -67,6 +60,11 @@ function Sidebar(props) {
           <SidebarRow key={item.index} value={item} notifyBody={notifyBody} />
         ))}
       </ul>
+      <Classic
+        toggled={props.darkMode}
+        onToggle={props.toggleDarkMode}
+        duration={750}
+      />
       <div className='border-top mt-2'>
         <p>Made With</p>
         <img
@@ -75,14 +73,7 @@ function Sidebar(props) {
           alt='heart'
         />
         <p className='text-xs'>100 % open source</p>
-        {/* <p className='text-2xl sidebar-footnote'>
-          <button
-            className='clean-button underline'
-            onClick={() => changeCholor()}
-          >
-            Change Mode
-          </button>
-        </p> */}
+        <p className='text-2xl sidebar-footnote'></p>
       </div>
     </div>
   )

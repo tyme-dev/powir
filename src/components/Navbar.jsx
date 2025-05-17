@@ -3,7 +3,7 @@ import config from './utils/config'
 
 function Navbar() {
   function formatVersion(version) {
-    return version.split('.').splice(0, 2).join('.')
+    return version.split('.').splice(0, 3).join('.')
   }
   return (
     <div className='custom-border border-bottom'>

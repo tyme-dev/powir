@@ -1,6 +1,6 @@
 {
   "name": "powir",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Windows 10 based tool to monitor and analyze your system's power and battery usage",
   "main": "dist-electron/main.js",
   "repository": {
@@ -22,10 +22,11 @@
   "homepage": "./",
   "private": true,
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.6",
+    "@tailwindcss/vite": "^4.1.7",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
+    "@theme-toggles/react": "^4.1.0",
     "@vitejs/plugin-react": "^4.4.1",
     "axios": "^1.9.0",
     "chart.js": "^4.4.9",
@@ -33,10 +34,10 @@
     "electron-log": "^5.4.0",
     "jssoup": "0.0.15",
     "lodash": "^4.17.21",
-    "react": "^19.0.0",
+    "react": "^19.1.0",
     "react-chartjs-2": "^5.3.0",
-    "react-dom": "^19.0.0",
-    "tailwindcss": "^4.1.6",
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.7",
     "vite": "^6.3.5"
   },
   "scripts": {
@@ -44,6 +45,7 @@
     "start": "set BROWSER=none&&set VITE_REACT_APP_LITE_MODE=0&&vite",
     "electron-start": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
     "build": "vite build",
+    "build-local": "vite build && electron-builder",
     "dev": "set VITE_REACT_APP_LITE_MODE=0&&vite"
   },
   "eslintConfig": {
@@ -62,9 +64,9 @@
     ]
   },
   "devDependencies": {
-    "electron": "^36.0.0",
+    "electron": "^36.2.1",
     "electron-builder": "^26.0.12",
-    "eslint": "^9.26.0",
+    "eslint": "^9.27.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
