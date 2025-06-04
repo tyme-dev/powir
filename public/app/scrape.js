@@ -1,10 +1,7 @@
 import { exec } from 'child_process'
 import { readFile, writeFile } from 'fs'
 import { parseUsageInfo, parseHistoryInfo } from './parse.js'
-import { createRequire } from 'node:module'
-
-const require = createRequire(import.meta.url)
-const JSSoup = require('jssoup').default
+import { parse } from 'node-html-parser'
 
 function generateBatteryReport(cmd) {
   return new Promise((resolve, reject) => {
@@ -53,13 +50,13 @@ function writeDataToFile(data, path) {
   })
 }
 
-function getSoupInstance(html) {
-  return new JSSoup(html)
+function getHtmlRoot(html) {
+  return parse(html)
 }
 
-function getTables(soup) {
+function getTables(root) {
   // noinspection JSUnresolvedFunction
-  return soup.findAll('table')
+  return root.getElementsByTagName('table')
 }
 
 function cleanNewlineText(text) {
@@ -69,7 +66,7 @@ function cleanNewlineText(text) {
     .trim()
 }
 
-function getNote(soup, index) {
+function getNote(root, index) {
   switch (index) {
     // Don't want to scrape this part in case Windows changes the DOM and hence increasing stability
     case 0:
@@ -89,29 +86,31 @@ function getNote(soup, index) {
     case 7:
       return 'Current estimate of battery life based on all observed drains since OS install'
     default:
-      return cleanNewlineText(soup[index].previousSibling.text)
+      return cleanNewlineText(root[index].previousSibling.textContent)
   }
 }
 
 function getKeyValueInfo(data, rInfo) {
   // noinspection JSUnresolvedFunction
-  let colElements = rInfo.findAll('td')
-  if (colElements.length > 1 && cleanNewlineText(colElements[0].text)) {
-    data[0].push(cleanNewlineText(colElements[0].text))
-    data[1].push(cleanNewlineText(colElements[1].text))
+  let colElements = rInfo.getElementsByTagName('td')
+  if (colElements.length > 1 && cleanNewlineText(colElements[0].textContent)) {
+    data[0].push(cleanNewlineText(colElements[0].textContent))
+    data[1].push(cleanNewlineText(colElements[1].textContent))
   }
   return data
 }
 
 function getTabulatedKeys(data, rawInfo, index) {
   // noinspection JSUnresolvedFunction
-  let colElements = rawInfo[index].findAll('td').reduce((data, element) => {
-    let formattedElement = cleanNewlineText(element.text)
-    if (formattedElement) {
-      data.push(formattedElement)
-    }
-    return data
-  }, [])
+  let colElements = rawInfo[index]
+    .getElementsByTagName('td')
+    .reduce((data, element) => {
+      let formattedElement = cleanNewlineText(element.textContent)
+      if (formattedElement) {
+        data.push(formattedElement)
+      }
+      return data
+    }, [])
   if (colElements.length === 0) {
     return colElements
   }
@@ -127,13 +126,15 @@ function getTabulatedKeys(data, rawInfo, index) {
     case 'powerUsageHistoryInfo':
     case 'batteryLifeHistory': {
       // noinspection JSUnresolvedFunction
-      let colSubElements = rawInfo[0].findAll('td').reduce((data, element) => {
-        let formattedElement = cleanNewlineText(element.text)
-        if (formattedElement) {
-          data.push(formattedElement)
-        }
-        return data
-      }, [])
+      let colSubElements = rawInfo[0]
+        .getElementsByTagName('td')
+        .reduce((data, element) => {
+          let formattedElement = cleanNewlineText(element.textContent)
+          if (formattedElement) {
+            data.push(formattedElement)
+          }
+          return data
+        }, [])
       if (colSubElements.length < 2) {
         return colElements
       }
@@ -154,7 +155,7 @@ function getTabulatedKeys(data, rawInfo, index) {
 
 function getTabulatedData(data, rInfo) {
   // noinspection JSUnresolvedFunction
-  let colElements = rInfo.findAll('td')
+  let colElements = rInfo.getElementsByTagName('td')
   let result = {}
   if (colElements.length > 2) {
     switch (data.name) {
@@ -162,7 +163,7 @@ function getTabulatedData(data, rInfo) {
       case 'batteryUsageInfo':
         result = parseUsageInfo(
           data.data,
-          colElements.filter((colElement) => colElement.text),
+          colElements.filter((colElement) => colElement.textContent),
           cleanNewlineText
         )
         break
@@ -171,14 +172,14 @@ function getTabulatedData(data, rInfo) {
       case 'batteryLifeHistory':
         result = parseHistoryInfo(
           data.data,
-          colElements.filter((colElement) => colElement.text),
+          colElements.filter((colElement) => colElement.textContent),
           cleanNewlineText
         )
         break
       case 'batteryLifeOverallHistory':
         result = colElements
           .map((colElement) => {
-            let resultElement = cleanNewlineText(colElement.text)
+            let resultElement = cleanNewlineText(colElement.textContent)
             if (resultElement === '-') {
               return '0:00:00'
             }
@@ -189,7 +190,7 @@ function getTabulatedData(data, rInfo) {
       default:
         result = colElements
           .filter((colElement) => colElement)
-          .map((colElement) => cleanNewlineText(colElement.text))
+          .map((colElement) => cleanNewlineText(colElement.textContent))
         break
     }
     data.data.push(result)
@@ -197,15 +198,16 @@ function getTabulatedData(data, rInfo) {
   return data
 }
 
-function computeInfo(soup, infoName, index, filterType) {
+function computeInfo(root, infoName, index, filterType) {
   let info = {
     name: infoName,
     note: '',
     keys: [],
     data: [],
   }
-  info.note = getNote(soup, index)
-  let rawInfo = soup[index].findAll('tr')
+  // console.log(root[index])
+  info.note = getNote(root, index)
+  let rawInfo = root[index].getElementsByTagName('tr')
   switch (filterType) {
     case 'KEY_VALUE':
       ;[info.keys, info.data] = rawInfo.reduce(getKeyValueInfo, [[], []])
@@ -255,16 +257,16 @@ function computeBatteryHealth(info) {
   info.data.push(health + ' %')
 }
 
-function getInfo(soup, infoName, index, filterType) {
+function getInfo(root, infoName, index, filterType) {
   return new Promise((resolve, reject) => {
     // noinspection JSUnresolvedFunction
     try {
-      let info = computeInfo(soup, infoName, index, filterType)
+      let info = computeInfo(root, infoName, index, filterType)
       resolve(info)
     } catch (e) {
       resolve({
         name: infoName,
-        note: getNote(soup, index),
+        note: getNote(root, index),
         keys: [],
         data: [],
       })
@@ -273,8 +275,8 @@ function getInfo(soup, infoName, index, filterType) {
 }
 
 async function scrape(html) {
-  let soup = getSoupInstance(html)
-  let tables = getTables(soup)
+  let root = getHtmlRoot(html)
+  let tables = getTables(root)
   let values = [
     { tables: tables, name: 'systemInfo', index: 0, filterType: 'KEY_VALUE' },
     { tables: tables, name: 'batteryInfo', index: 1, filterType: 'KEY_VALUE' },
