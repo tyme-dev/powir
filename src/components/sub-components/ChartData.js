@@ -254,7 +254,7 @@ function getGroupedPowerUsageInfoData(info) {
           item,
           info.data[index + 1]
         )
-        durations.map((duration) => data.push(duration))
+        durations.forEach((duration) => data.push(duration))
         return data
     }
   }, [])
