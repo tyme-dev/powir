@@ -29,7 +29,6 @@
     "chart.js": "^4.4.9",
     "electron-is-dev": "^3.0.1",
     "electron-log": "^5.4.0",
-    "lodash": "^4.17.21",
     "node-html-parser": "^7.0.1",
     "react": "^19.1.0",
     "react-chartjs-2": "^5.3.0",
