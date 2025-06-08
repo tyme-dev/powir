@@ -1,12 +1,13 @@
 {
   "name": "powir",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Windows 10 based tool to monitor and analyze your system's power and battery usage",
   "main": "dist-electron/main.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tyme-dev/powir.git"
   },
+  "type": "module",
   "author": {
     "name": "Timothy Pace",
     "email": "powir@timothy.dev"
