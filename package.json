@@ -35,7 +35,7 @@
     "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.8",
-    "vite": "^6.3.5"
+    "vite": "^7.0.0"
   },
   "scripts": {
     "browser-start": "node public/browser.js&&set VITE_REACT_APP_LITE_MODE=1&&vite",
