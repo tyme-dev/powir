@@ -9,7 +9,9 @@ import server from '../public/app/server'
 import { getMenuTemplate } from '../public/app/menu'
 
 process.env.APP_ROOT = join(__dirname, '..')
+// Keep the original dist target for packaged builds but add webapp path for dev/initial UI5 files
 const RENDERER_DIST = join(process.env.APP_ROOT, 'dist')
+const RENDERER_WEBAPP = join(process.env.APP_ROOT, 'webapp') // new UI5 webapp location
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -27,11 +29,18 @@ function createWindow() {
   win.show()
   // and load the index.html of the app.
   if (isDev) {
-    win.loadURL('http://localhost:3000').catch((error) => {
-      if (error.code === 'ERR_ABORTED') return
-      throw error
-    })
+    // During development we load the webapp index (UI5 CDN bootstrap), or if you run a local UI5 server change URL accordingly
+    try {
+      win.loadFile(join(RENDERER_WEBAPP, 'index.html'))
+    } catch (err) {
+      // fallback to original localhost used by CRA (if you still run a dev server)
+      win.loadURL('http://localhost:3000').catch((error) => {
+        if (error.code === 'ERR_ABORTED') return
+        throw error
+      })
+    }
   } else {
+    // Packaged app: look for prebuilt dist/index.html (unchanged behavior)
     win.loadFile(join(RENDERER_DIST, 'index.html'))
   }
 
@@ -70,23 +79,18 @@ app.on('activate', () => {
 ipcMain.on('battery-report-ready', (event, data) => {
   server.sendBatteryReport(event, data)
 })
-
 ipcMain.on('show-original-report', (event, data) => {
   server.showOriginalReport()
 })
-
 ipcMain.on('export-JSON-data', (event, data) => {
   server.exportJSONData()
 })
-
 ipcMain.on('export-PDF-report', (event, data) => {
   server.exportPDFReport()
 })
-
 ipcMain.on('get-updates', (event, data) => {
   server.getUpdates(event, data)
 })
-
 ipcMain.on('open-link', async (event, data) => {
   server.openLink(data.url).catch((error) => log(error))
 })

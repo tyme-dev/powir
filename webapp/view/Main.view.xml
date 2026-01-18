@@ -1,0 +1,53 @@
+<mvc:View
+  controllerName="powir.controller.Main"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  displayBlock="true"
+>
+  <App id="appControl">
+    <Page id="mainPage" showHeader="true">
+      <customHeader>
+        <Bar id="headerBar">
+          <contentLeft>
+            <Title text="{appMeta>/appTitle}" level="H3" />
+          </contentLeft>
+          <contentMiddle>
+            <Text text="Monitoring &amp; Analyzing Your Battery!" />
+          </contentMiddle>
+          <contentRight>
+            <Button icon="sap-icon://system" press="onOpenRepo" tooltip="Open Repository" />
+          </contentRight>
+        </Bar>
+      </customHeader>
+
+      <content>
+        <SplitApp id="splitApp">
+          <masterPages>
+            <Page id="navPage" title="Navigation">
+              <List id="sideNav" mode="SingleSelectMaster" select="onNavSelect">
+                <items>
+                  <StandardListItem title="Information" />
+                  <StandardListItem title="About" />
+                  <StandardListItem title="Links" />
+                  <StandardListItem title="Actions" />
+                </items>
+              </List>
+            </Page>
+          </masterPages>
+
+          <detailPages>
+            <Page id="detailPage" title="Content">
+              <VBox id="detailContainer" renderType="Bare"></VBox>
+            </Page>
+          </detailPages>
+        </SplitApp>
+      </content>
+
+      <footer>
+        <Toolbar>
+          <Title text="Powir - Footer" level="H4" />
+        </Toolbar>
+      </footer>
+    </Page>
+  </App>
+</mvc:View>
