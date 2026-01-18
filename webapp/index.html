@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Powir (UI5)</title>
+    <!-- OpenUI5 bootstrap from CDN (quick testing). For production consider local UI5 libs or ui5-tooling. -->
+    <script
+      id="sap-ui-bootstrap"
+      src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
+      data-sap-ui-theme="sap_fiori_3"
+      data-sap-ui-libs="sap.m,sap.viz"
+      data-sap-ui-async="true"
+      data-sap-ui-resourceroots='{"powir": "./"}'
+    ></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Keep referencing existing styles in assets (adjust path if you move files) -->
+    <link rel="stylesheet" href="../assets/css/paper.min.css" />
+    <link rel="stylesheet" href="../assets/css/fonts.css" />
+  </head>
+  <body class="sapUiBody" id="content">
+    <!-- UI5 will instantiate the Component and root view -->
+    <script>
+      sap.ui.getCore().attachInit(function () {
+        sap.ui.require(["sap/ui/core/ComponentContainer"], function (ComponentContainer) {
+          new ComponentContainer({
+            name: "powir",
+            settings: { id: "powir" },
+            height: "100%"
+          }).placeAt("content");
+        });
+      });
+    </script>
+  </body>
+</html>
