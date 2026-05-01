@@ -37,7 +37,7 @@ importers:
         version: 19.1.1
       react-chartjs-2:
         specifier: ^5.3.0
-        version: 5.3.0(chart.js@4.5.0)(react@19.1.1)
+        version: 5.3.1(chart.js@4.5.0)(react@19.1.1)
       react-dom:
         specifier: ^19.1.0
         version: 19.1.1(react@19.1.1)
@@ -2275,8 +2275,8 @@ packages:
     resolution: {integrity: sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==}
     engines: {node: '>=10'}
 
-  react-chartjs-2@5.3.0:
-    resolution: {integrity: sha512-UfZZFnDsERI3c3CZGxzvNJd02SHjaSJ8kgW1djn65H1KK8rehwTjyrRKOG3VTMG8wtHZ5rgAO5oTHtHi9GCCmw==}
+  react-chartjs-2@5.3.1:
+    resolution: {integrity: sha512-h5IPXKg9EXpjoBzUfyWJvllMjG2mQ4EiuHQFhms/AjUm0XSZHhyRy2xVmLXHKrtcdrPO4mnGqRtYoD0vp95A0A==}
     peerDependencies:
       chart.js: ^4.1.1
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -5263,7 +5263,7 @@ snapshots:
 
   quick-lru@5.1.1: {}
 
-  react-chartjs-2@5.3.0(chart.js@4.5.0)(react@19.1.1):
+  react-chartjs-2@5.3.1(chart.js@4.5.0)(react@19.1.1):
     dependencies:
       chart.js: 4.5.0
       react: 19.1.1
